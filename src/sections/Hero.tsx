@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from '@/lib/gsap'
-import { getLenis } from '@/lib/lenis'
+import { getLenis, LERP, setScrollLerp } from '@/lib/lenis'
 import { heroProgress } from '@/lib/progressStore'
 import { useIsMobile, usePrefersReducedMotion, useWebGL } from '@/lib/hooks'
 import { scene as S } from '@/tokens'
@@ -98,12 +98,16 @@ export default function Hero() {
         scrub: 1,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        // floaty smoothing while the chip scrubs, tight scrolling once the page takes over
+        onToggle: (self) => setScrollLerp(self.isActive ? LERP.hero : LERP.page),
+        onRefresh: (self) => setScrollLerp(self.isActive ? LERP.hero : LERP.page),
       },
     })
     apply()
     return () => {
       tween.scrollTrigger?.kill()
       tween.kill()
+      setScrollLerp(LERP.page)
     }
   }, [pinned])
 

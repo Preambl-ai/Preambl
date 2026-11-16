@@ -3,11 +3,16 @@ import { gsap, ScrollTrigger } from './gsap'
 
 let lenis: Lenis | null = null
 
+/** Smoothing per wheel step: lower = floatier. The pinned hero wants the float; the page below should track the wheel. */
+export const LERP = { hero: 0.1, page: 0.32 } as const
+// Remembered so a value set before Lenis exists (Hero mounts first) still applies.
+let currentLerp: number = LERP.page
+
 /** Creates (once) a Lenis instance synced with GSAP ScrollTrigger. */
 export function initLenis(enabled: boolean) {
   if (lenis || !enabled) return lenis
   lenis = new Lenis({
-    lerp: 0.1,
+    lerp: currentLerp,
     smoothWheel: true,
     syncTouch: false, // native touch scrolling feels best on mobile; Lenis still reports scroll
     touchMultiplier: 1.2,
@@ -19,6 +24,12 @@ export function initLenis(enabled: boolean) {
 
 export function getLenis() {
   return lenis
+}
+
+/** Switch smoothing live (Lenis reads `options.lerp` on every wheel event). */
+export function setScrollLerp(lerp: number) {
+  currentLerp = lerp
+  if (lenis) lenis.options.lerp = lerp
 }
 
 /** Scroll to a target with Lenis when available, else native. */
