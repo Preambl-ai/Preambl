@@ -46,7 +46,6 @@ export default function ContactModal() {
         <span className="modal__corner tl" />
         <span className="modal__corner br" />
         <div className="modal__head">
-          <span className="mono mono-hi">// contact</span>
           <button className="modal__close mono" onClick={() => setOpen(false)}>
             close ×
           </button>

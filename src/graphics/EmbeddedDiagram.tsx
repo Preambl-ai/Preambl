@@ -35,7 +35,7 @@ export default function EmbeddedDiagram({ play }: { play: boolean }) {
   for (let r = 0; r < 5; r++) for (let c = 0; c < 6; c++) marks.push({ x: 262 + c * 20, y: 126 + r * 22 })
 
   return (
-    <GraphicFrame tag={<>fig 02 · <b>weights in the silicon</b></>} aspect={`${W}/${H}`} label="Diagram where external memory disappears and weights appear embedded inside the compute fabric, which lights up">
+    <GraphicFrame tag={<><b>weights in the silicon</b></>} aspect={`${W}/${H}`} label="Diagram where external memory disappears and weights appear embedded inside the compute fabric, which lights up">
       <svg ref={ref} viewBox={`0 0 ${W} ${H}`} style={{ color: color.accentHi }}>
         <GraphicDefs id={ID} />
         <GridUnderlay id={ID} w={W} h={H} />

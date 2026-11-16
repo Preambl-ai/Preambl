@@ -5,6 +5,8 @@ import {
   InstancedMesh,
   Matrix4,
   MeshPhysicalMaterial,
+  Quaternion,
+  Vector3,
   MeshStandardMaterial,
   PointLight,
 } from 'three'
@@ -18,7 +20,10 @@ export const CHIP = {
   dieH: 0.09,
   pkg: 2.7,
   pkgH: 0.16,
-  padsPerSide: 22,
+  /** Bond-pad slots per side drawn by die.glsl (`padCount`); the two corner slots are masked off. */
+  diePadSlots: 22,
+  /** Visible die pads per side = package pads per side = wires per side. */
+  padsPerSide: 20,
   padRadius: 1.19,
   margin: 0.052, // must match `margin` in die.glsl
 }
@@ -90,30 +95,45 @@ export default function Chip({ progress, params }: ChipProps) {
   const spill = useRef<PointLight>(null)
   const count = CHIP.padsPerSide * 4
 
-  // Lay out pads and lead-frame wires around the die perimeter.
+  // Lay out package pads and bond wires. Each wire runs from the centre of a bond pad
+  // drawn on the die (die.glsl) down to its pad on the package, so the wires fan out slightly.
   useEffect(() => {
     const m = new Matrix4()
     const rot = new Matrix4()
     const pos = new Matrix4()
-    const tilt = new Matrix4()
-    const rise = CHIP.dieH + 0.006
-    const drop = 0.012
-    const r0 = CHIP.die / 2 - 0.02
-    const r1 = CHIP.padRadius - 0.02
-    const ang = Math.atan2(rise - drop, r1 - r0)
+    const local = new Matrix4()
+    const q = new Quaternion()
+    const from = new Vector3()
+    const to = new Vector3()
+    const mid = new Vector3()
+    const dir = new Vector3()
+    const scale = new Vector3(1, 1, 1)
+    const X = new Vector3(1, 0, 0)
+    // die.glsl: pads span edgeD 0.005..0.033 in uv, i.e. centred 0.019 * die in from the edge
+    const dieR = CHIP.die / 2 - 0.019 * CHIP.die
+    const dieY = CHIP.dieH + 0.004
+    const pkgR = CHIP.padRadius - 0.02
+    const pkgY = 0.01
     let i = 0
     for (let s = 0; s < 4; s++) {
       rot.makeRotationY(RADIAL[s])
       for (let k = 0; k < CHIP.padsPerSide; k++) {
-        const along = -0.91 + (k / (CHIP.padsPerSide - 1)) * 1.82
+        const pkgAlong = -0.91 + (k / (CHIP.padsPerSide - 1)) * 1.82
+        // slot k+1 of the shader's pad ring (slot 0 and the last slot are the masked corners)
+        const dieAlong = ((k + 1.5) / CHIP.diePadSlots - 0.5) * CHIP.die
         // pad on the package
-        pos.makeTranslation(CHIP.padRadius, 0.004, along)
+        pos.makeTranslation(CHIP.padRadius, 0.004, pkgAlong)
         m.multiplyMatrices(rot, pos)
         pads.current?.setMatrixAt(i, m)
-        // lead from die edge down to the pad
-        pos.makeTranslation((r0 + r1) / 2, (rise + drop) / 2, along)
-        tilt.makeRotationZ(-ang)
-        m.multiplyMatrices(rot, pos).multiply(tilt)
+        // wire: unit-length box stretched between the two pad centres
+        from.set(dieR, dieY, dieAlong)
+        to.set(pkgR, pkgY, pkgAlong)
+        dir.subVectors(to, from)
+        scale.x = dir.length()
+        q.setFromUnitVectors(X, dir.normalize())
+        mid.addVectors(from, to).multiplyScalar(0.5)
+        local.compose(mid, q, scale)
+        m.multiplyMatrices(rot, local)
         leads.current?.setMatrixAt(i, m)
         i++
       }
@@ -158,7 +178,7 @@ export default function Chip({ progress, params }: ChipProps) {
       </instancedMesh>
       {/* lead-frame wires */}
       <instancedMesh ref={leads} args={[undefined, undefined, count]} material={leadMat}>
-        <boxGeometry args={[Math.hypot(CHIP.padRadius - CHIP.die / 2, CHIP.dieH), 0.004, 0.011]} />
+        <boxGeometry args={[1, 0.004, 0.011]} />
       </instancedMesh>
       {/* energy spill onto the package and floor */}
       <pointLight ref={spill} position={[0, 0.9, 0]} color={color.accent} intensity={0} distance={7} decay={2} />

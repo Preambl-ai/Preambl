@@ -75,7 +75,7 @@ export default function MetricGauges({ play }: { play: boolean }) {
       <span className="corner bl" />
       <span className="corner br" />
       <span className="tag">
-        fig 03 · <b>readouts</b> · illustrative, values TBD
+        <b>readouts</b> · illustrative, values TBD
       </span>
       <div className="gauges__row">{play ? METRICS.map((m, i) => <Gauge key={m.key} m={m} i={i} />) : METRICS.map((m) => <div key={m.key} className="gauge gauge--pending" />)}</div>
     </div>

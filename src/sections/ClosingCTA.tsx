@@ -9,7 +9,6 @@ export default function ClosingCTA() {
     <section ref={ref} className="cta section">
       <div className="cta__glow" aria-hidden />
       <div className="container cta__inner">
-        <span className="eyebrow reveal">First silicon</span>
         <h2 className="h1 reveal">
           See our first chip.
           <br />

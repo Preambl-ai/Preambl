@@ -19,14 +19,6 @@
   transform: translateX(-50%);
   pointer-events: none;
 }
-.phero__hud {
-  position: absolute;
-  pointer-events: none;
-}
-.phero__hud--tl {
-  top: 20px;
-  left: var(--space-gutter);
-}
 .phero__copy {
   display: flex;
   flex-direction: column;

@@ -43,7 +43,7 @@ export default function DataFlow({ play }: { play: boolean }) {
   for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) px.push({ x: 60 + c * 11, y: 120 + r * 11, v: ((r * 13 + c * 7) % 10) / 10 })
 
   return (
-    <GraphicFrame tag={<>fig 06 · <b>data flow</b> · conceptual</>} aspect={`${W}/${H}`} label="An image enters the chip, passes through convolution, pooling and dense stages drawn on the die, and a classification comes out">
+    <GraphicFrame tag={<><b>data flow</b> · conceptual</>} aspect={`${W}/${H}`} label="An image enters the chip, passes through convolution, pooling and dense stages drawn on the die, and a classification comes out">
       <svg ref={ref} viewBox={`0 0 ${W} ${H}`} style={{ color: color.accentHi }}>
         <GraphicDefs id={ID} />
         <GridUnderlay id={ID} w={W} h={H} />

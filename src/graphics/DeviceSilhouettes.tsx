@@ -37,7 +37,7 @@ export default function DeviceSilhouettes({ play }: { play: boolean }) {
   })
   const line = { fill: 'none', stroke: color.silver, strokeWidth: stroke.thin } as const
   return (
-    <GraphicFrame tag={<>fig 05 · <b>where it goes</b></>} aspect={`${W}/${H}`} label="Line drawings of a laptop, a phone, an edge camera and an embedded board, each containing a glowing chip">
+    <GraphicFrame tag={<><b>where it goes</b></>} aspect={`${W}/${H}`} label="Line drawings of a laptop, a phone, an edge camera and an embedded board, each containing a glowing chip">
       <svg ref={ref} viewBox={`0 0 ${W} ${H}`}>
         <GraphicDefs id={ID} />
         <GridUnderlay id={ID} w={W} h={H} />

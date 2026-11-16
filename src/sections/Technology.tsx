@@ -4,7 +4,6 @@ import MetricGauges from '@/graphics/MetricGauges'
 import GenerationsTimeline from '@/graphics/GenerationsTimeline'
 import DeviceSilhouettes from '@/graphics/DeviceSilhouettes'
 import Section from './Section'
-import Divider from './Divider'
 import ClosingCTA from './ClosingCTA'
 
 /**
@@ -15,11 +14,8 @@ import ClosingCTA from './ClosingCTA'
 export default function Technology() {
   return (
     <div id="technology" className="technology">
-      <Divider variant={0} />
 
       <Section
-        index="01 / 05"
-        eyebrow="The bottleneck"
         title={
           <>
             Inference is mostly <em>waiting</em>.
@@ -35,11 +31,8 @@ export default function Technology() {
         </p>
       </Section>
 
-      <Divider variant={1} />
 
       <Section
-        index="02 / 05"
-        eyebrow="The idea"
         title={<>What if the model was the chip?</>}
         graphic={(play) => <EmbeddedDiagram play={play} />}
         reverse
@@ -53,11 +46,8 @@ export default function Technology() {
         {/* TODO(confidential-review): the paragraph above is intentionally conceptual. */}
       </Section>
 
-      <Divider variant={2} />
 
       <Section
-        index="03 / 05"
-        eyebrow="Why it matters"
         title={<>Faster, cooler, cheaper, and private.</>}
         graphic={(play) => <MetricGauges play={play} />}
       >
@@ -81,11 +71,8 @@ export default function Technology() {
         <span className="mono reveal">Measured figures to be published · TODO(real-data)</span>
       </Section>
 
-      <Divider variant={0} />
 
       <Section
-        index="04 / 05"
-        eyebrow="Frozen by design"
         title={<>A fixed model is a feature.</>}
         graphic={(play) => <GenerationsTimeline play={play} />}
         reverse
@@ -101,11 +88,8 @@ export default function Technology() {
         </p>
       </Section>
 
-      <Divider variant={1} />
 
       <Section
-        index="05 / 05"
-        eyebrow="Where it goes"
         title={<>Intelligence that lives in the device.</>}
         graphic={(play) => <DeviceSilhouettes play={play} />}
       >
@@ -117,7 +101,6 @@ export default function Technology() {
         </p>
       </Section>
 
-      <Divider variant={2} />
       <ClosingCTA />
     </div>
   )

@@ -22,7 +22,6 @@ export interface ChipSceneProps {
   /** Fires after the first frames have rendered (shaders compiled). */
   onReady?: () => void
   preserveDrawingBuffer?: boolean
-  dof?: boolean
   micro?: boolean
   className?: string
   onCreatedCanvas?: (el: HTMLCanvasElement) => void
@@ -87,7 +86,6 @@ export default function ChipScene({
   orbit = false,
   onReady,
   preserveDrawingBuffer = false,
-  dof = true,
   micro = true,
   className,
   onCreatedCanvas,
@@ -113,7 +111,7 @@ export default function ChipScene({
       <Floor progress={progress} />
       {cameraRig ? <CameraRig progress={progress} /> : null}
       {orbit ? <OrbitSetup /> : null}
-      <Effects progress={progress} mobile={mobile} dof={dof} />
+      <Effects mobile={mobile} />
       <ReadySignal onReady={onReady} />
     </Canvas>
   )

@@ -132,7 +132,6 @@ export default function Hero() {
             active={active && (pinned ? true : loaded)}
             cameraRig={pinned}
             orbit={false}
-            dof={!mobile}
             onReady={() => setReady(true)}
             {...(!pinned ? { params: { hum: 0.6 } } : {})}
           />
@@ -150,7 +149,6 @@ export default function Hero() {
         <div ref={shade} className="hero__shade" aria-hidden />
         <div className="hero__text">
           <div ref={text0} className="hero__t0">
-            <span className="mono hero__kicker">Preambl · inference silicon</span>
             <h1 className="display hero__title">{TAGLINE}</h1>
           </div>
           <div ref={text1} className="hero__t1">
@@ -165,12 +163,6 @@ export default function Hero() {
             <span className="hero__hint-line" />
           </div>
         ) : null}
-
-        {/* HUD annotations: monospace callouts with leader lines */}
-        <div className="hero__hud" aria-hidden>
-          <span className="hero__hud-item hero__hud-item--tl mono">die · top view</span>
-          <span className="hero__hud-item hero__hud-item--br mono">preambl-0 · gen 0</span>
-        </div>
       </div>
     </section>
   )

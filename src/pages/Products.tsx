@@ -37,19 +37,15 @@ function ProductHero({ p }: { p: Product }) {
     <section ref={ref} className="phero">
       <div ref={host} className="phero__scene">
         {webgl ? (
-          <ChipScene progress={powered} params={{ ...p.die, hum: reduced ? 0.3 : p.die.hum }} mobile={mobile} active={active} orbit cameraRig={false} dof={false} micro={false} />
+          <ChipScene progress={powered} params={{ ...p.die, hum: reduced ? 0.3 : p.die.hum }} mobile={mobile} active={active} orbit cameraRig={false} micro={false} />
         ) : (
           <div className="hero__fallback">
             <img src="/fallback/chip-final.png" alt={`${p.name} chip render`} />
           </div>
         )}
         <span className="phero__hint mono">drag to orbit</span>
-        <span className="phero__hud phero__hud--tl mono">
-          {p.family.toUpperCase()} · {STATUS[p.status].toUpperCase()}
-        </span>
       </div>
       <div className="container phero__copy">
-        <span className="eyebrow reveal">{p.family}</span>
         <h1 className="display phero__name reveal">{p.name}</h1>
         <p className="lead reveal">{p.tagline}</p>
         <div className="phero__actions reveal">
@@ -74,7 +70,6 @@ function ProductDetail({ p }: { p: Product }) {
       <section ref={about} className="section">
         <div className="container section-grid">
           <div className="copy">
-            <span className="eyebrow reveal">What it does</span>
             <h2 className="h1 reveal">Vision inference. Fully on-chip.</h2>
             {p.description.map((d, i) => (
               <p key={i} className={`${i === 0 ? 'lead' : 'body'} reveal`}>
@@ -96,7 +91,6 @@ function ProductDetail({ p }: { p: Product }) {
       <section ref={flow} className="section">
         <div className="container">
           <div className="copy" style={{ marginBottom: 40 }}>
-            <span className="eyebrow reveal">How data flows</span>
             <h2 className="h1 reveal">In: an image. Out: an answer.</h2>
             <p className="body reveal">
               A frame enters the chip and passes through the network's layers, each one a region of the die whose weights are fixed in place. No layer waits for its weights to arrive. The classification comes out the other side.
@@ -117,8 +111,7 @@ function ProductGrid() {
   return (
     <section ref={ref} className="section" style={{ paddingTop: 160 }}>
       <div className="container">
-        <span className="eyebrow reveal">Products</span>
-        <h1 className="h1 reveal" style={{ marginTop: 16, marginBottom: 48 }}>
+        <h1 className="h1 reveal" style={{ marginBottom: 48 }}>
           Models, cast in silicon.
         </h1>
         <div className="pgrid">

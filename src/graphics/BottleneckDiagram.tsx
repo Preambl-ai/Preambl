@@ -26,7 +26,7 @@ export default function BottleneckDiagram({ play }: { play: boolean }) {
   })
 
   return (
-    <GraphicFrame tag={<>fig 01 · <b>weights ↔ compute</b></>} aspect={`${W}/${H}`} label="Diagram of a compute block waiting on weights arriving slowly from distant memory">
+    <GraphicFrame tag={<><b>weights ↔ compute</b></>} aspect={`${W}/${H}`} label="Diagram of a compute block waiting on weights arriving slowly from distant memory">
       <svg ref={ref} viewBox={`0 0 ${W} ${H}`} style={{ color: color.lineHi }}>
         <GraphicDefs id={ID} />
         <GridUnderlay id={ID} w={W} h={H} />

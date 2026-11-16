@@ -113,23 +113,6 @@ p {
 .mono-hi {
   color: var(--color-accent);
 }
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-}
-.eyebrow::before {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--color-accent);
-  box-shadow: 0 0 8px var(--color-accent);
-}
 
 /* ---------- layout ---------- */
 .container {

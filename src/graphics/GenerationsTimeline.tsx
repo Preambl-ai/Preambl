@@ -29,7 +29,7 @@ export default function GenerationsTimeline({ play }: { play: boolean }) {
 
   const xs = [110, 300, 490, 680]
   return (
-    <GraphicFrame tag={<>fig 04 · <b>generations</b></>} aspect={`${W}/${H}`} label="Timeline of chip generations, each denser and brighter than the previous">
+    <GraphicFrame tag={<><b>generations</b></>} aspect={`${W}/${H}`} label="Timeline of chip generations, each denser and brighter than the previous">
       <svg ref={ref} viewBox={`0 0 ${W} ${H}`} style={{ color: color.accentHi }}>
         <GraphicDefs id={ID} />
         <GridUnderlay id={ID} w={W} h={H} />
