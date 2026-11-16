@@ -68,7 +68,6 @@ export default function Technology() {
             <b>Privacy.</b> The whole model lives on the device. Inputs never need to leave it.
           </li>
         </ul>
-        <span className="mono reveal">Measured figures to be published · TODO(real-data)</span>
       </Section>
 
 
