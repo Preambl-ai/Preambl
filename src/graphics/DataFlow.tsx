@@ -8,12 +8,15 @@ const H = 340
 const ID = 'flow'
 
 const STAGES = [
-  { label: 'CONV', w: 70 },
-  { label: 'POOL', w: 40 },
-  { label: 'CONV', w: 70 },
-  { label: 'POOL', w: 40 },
-  { label: 'DENSE', w: 56 },
+  { label: 'CONV', w: 66 },
+  { label: 'POOL', w: 38 },
+  { label: 'CONV', w: 66 },
+  { label: 'POOL', w: 38 },
+  { label: 'DENSE', w: 52 },
 ]
+// Stages must fit inside the die's inner frame (x 238..552): 260 of blocks + 4 gaps of 8.5 = 294.
+const STAGE_X0 = 248
+const STAGE_GAP = 8.5
 
 /**
  * How data flows through the CNN chip: an image enters, passes through
@@ -33,10 +36,10 @@ export default function DataFlow({ play }: { play: boolean }) {
     q('.stage-fill').forEach((s, i) => gsap.to(s, { opacity: 0.7, duration: 1.4, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: i * 0.25 }))
   })
 
-  let x = 250
+  let x = STAGE_X0
   const stages = STAGES.map((s) => {
     const o = { ...s, x }
-    x += s.w + 18
+    x += s.w + STAGE_GAP
     return o
   })
   const px: { x: number; y: number; v: number }[] = []
@@ -108,7 +111,7 @@ export default function DataFlow({ play }: { play: boolean }) {
 
         <Callout x={104} y={116} lx={150} ly={50} label="input" sub="camera frame" />
         <Callout x={395} y={70} lx={470} ly={40} label="layers" sub="fixed in silicon" hi />
-        <Callout x={665} y={118} lx={640} ly={60} label="classification" sub="on-chip, no memory bus" anchor="end" />
+        <Callout x={665} y={118} lx={742} ly={60} label="classification" sub="on-chip, no memory bus" anchor="end" />
       </svg>
     </GraphicFrame>
   )
