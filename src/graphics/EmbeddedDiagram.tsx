@@ -45,7 +45,7 @@ export default function EmbeddedDiagram({ play }: { play: boolean }) {
 
         {/* memory block (dissolves) */}
         <g className="memory">
-          <rect className="draw" x="48" y="96" width="112" height="168" fill={color.bg2} stroke={color.silver} strokeWidth={stroke.thin} />
+          <rect className="draw" x="48" y="96" width="112" height="168" fill={color.bg3} stroke={color.silver} strokeWidth={stroke.thin} />
           {Array.from({ length: 8 }, (_, i) => (
             <rect key={i} x="60" y={110 + i * 18} width="88" height="10" fill="none" stroke={color.line} strokeWidth={stroke.hair} />
           ))}
@@ -66,7 +66,7 @@ export default function EmbeddedDiagram({ play }: { play: boolean }) {
 
         {/* compute fabric, now with weights inside */}
         <g className="fabric">
-          <rect className="draw" x="230" y="84" width="180" height="192" fill={color.bg2} stroke={color.silverHi} strokeWidth={stroke.thin} />
+          <rect className="draw" x="230" y="84" width="180" height="192" fill={color.bg3} stroke={color.silverHi} strokeWidth={stroke.thin} />
           <g clipPath={`url(#${ID}-clip)`}>
             <rect x="230" y="84" width="180" height="192" fill={`url(#${ID}-radial)`} />
             <CellField id={`${ID}-cells`} x={240} y={94} w={160} h={150} pitch={7} opacity={0.75} />

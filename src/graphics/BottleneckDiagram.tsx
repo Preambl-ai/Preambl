@@ -33,7 +33,7 @@ export default function BottleneckDiagram({ play }: { play: boolean }) {
 
         {/* memory block */}
         <g className="block">
-          <rect className="draw" x="48" y="96" width="132" height="168" fill={color.bg2} stroke={color.silver} strokeWidth={stroke.thin} />
+          <rect className="draw" x="48" y="96" width="132" height="168" fill={color.bg3} stroke={color.silver} strokeWidth={stroke.thin} />
           {Array.from({ length: 8 }, (_, i) => (
             <rect key={i} x="62" y={110 + i * 18} width="104" height="10" fill="none" stroke={color.line} strokeWidth={stroke.hair} />
           ))}
@@ -66,7 +66,7 @@ export default function BottleneckDiagram({ play }: { play: boolean }) {
 
         {/* compute block */}
         <g className="block">
-          <rect className="draw" x="440" y="96" width="152" height="168" fill={color.bg2} stroke={color.silver} strokeWidth={stroke.thin} />
+          <rect className="draw" x="440" y="96" width="152" height="168" fill={color.bg3} stroke={color.silver} strokeWidth={stroke.thin} />
           <g className="starve" opacity="0.35">
             <CellField id={`${ID}-cells`} x={452} y={108} w={128} h={120} pitch={8} />
           </g>

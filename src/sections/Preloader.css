@@ -9,24 +9,26 @@
 }
 .preloader__inner {
   display: flex;
-  align-items: center;
-  gap: 18px;
-  width: min(360px, 70vw);
+  align-items: flex-end;
+  gap: 22px;
 }
-.preloader__track {
-  flex: 1;
-  height: 1px;
-  background: var(--color-line);
-  position: relative;
-  overflow: visible;
+.preloader__bits {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 34px;
 }
-.preloader__bar {
-  position: absolute;
-  inset: 0;
-  transform-origin: left center;
-  transform: scaleX(0);
-  background: linear-gradient(90deg, var(--color-accent), var(--color-amber));
-  box-shadow: 0 0 10px rgba(220, 42, 82, 0.7);
+.preloader__bits span {
+  width: 5px;
+  height: 14px;
+  background: var(--color-line-hi);
+  transition: background 0.18s steps(2);
+}
+.preloader__bits span.is-tall {
+  height: 34px;
+}
+.preloader__bits span.is-lit {
+  background: var(--color-text);
 }
 .preloader__pct {
   color: var(--color-text-dim);

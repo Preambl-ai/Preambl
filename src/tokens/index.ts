@@ -5,39 +5,41 @@
  */
 
 export const color = {
-  // Backgrounds: midnight cherry — near-black with a deep cherry tint, never pure black
-  bg0: '#0A0407',
-  bg1: '#10060A',
-  bg2: '#160810',
-  bg3: '#1E0B14',
+  // Silk palette: Night / Oxblood / Wine / Clay / Copper / Sand / Peach. No pure black or white.
+  // Backgrounds: Night is the page, Oxblood the deep surface
+  bg0: '#1A0607', // Night
+  bg1: '#220609',
+  bg2: '#2D050A', // Oxblood
+  bg3: '#3B0B12', // brand maroon
 
-  // Primary accent: cherry, used as emissive light (energy, traces, glow)
-  accent: '#DC2A52',
-  accentHi: '#FF5F86',
-  // Amber: the rare "pop" accent — pulses, hottest flashes, CTA edges
-  amber: '#FFB03A',
-  // Hottest energy core: amber-white
-  core: '#FFE9BC',
+  // Accent: Copper, used as light (glow, traces, links), never as a big flat fill
+  accent: '#B88767',
+  accentHi: '#D7B599', // Sand: highlights
+  // Peach is the "signal" colour: key marks, pulses, hottest flashes
+  amber: '#F6DAC7',
+  // Hottest energy core
+  core: '#FBE9DC',
 
-  // Secondary: powder white / warm graphite for chip metal
-  graphite: '#221419',
-  graphiteHi: '#33222A',
-  silver: '#A3959B',
-  silverHi: '#F2EAEE', // powder white
+  // Chip metal: cast copper
+  graphite: '#2B100F',
+  graphiteHi: '#4A2420',
+  silver: '#9C6F55',
+  silverHi: '#F6DAC7', // Peach
 
-  // Linework: very muted cherry
-  line: '#3A1A26',
-  lineHi: '#5C2A3C',
-  grid: '#1C0C14',
+  // Linework: Wine and Clay
+  line: '#7A4A3C', // Clay, lifted so linework reads on Oxblood
+  lineHi: '#B88767', // Copper
+  grid: '#2B0C0D',
 
-  // Text: powder white family
-  text: '#F5EEF1',
-  textDim: '#A89AA0',
-  textMute: '#6A585F',
+  // Text: Peach on dark
+  text: '#F6DAC7',
+  textDim: '#C4A898', // Peach at ~75%
+  textMute: '#A57B60', // Copper, for small technical labels
 } as const
 
 export const font = {
-  heading: "'Space Grotesk', 'Inter Tight', system-ui, sans-serif",
+  heading: "'Montserrat', 'Inter', system-ui, sans-serif",
+  body: "'Inter', system-ui, sans-serif",
   mono: "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace",
 } as const
 
@@ -117,7 +119,7 @@ export function injectTokens() {
   }
   for (const [g, vals] of Object.entries(groups)) {
     for (const [k, v] of Object.entries(vals)) {
-      root.style.setProperty(`--${g}-${k.replace(/[A-Z0-9]/g, (m) => '-' + m.toLowerCase())}`, String(v))
+      root.style.setProperty(`--${g}-${k.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())}`, String(v))
     }
   }
 }

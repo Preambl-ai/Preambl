@@ -39,6 +39,7 @@ export default function App() {
 
   return (
     <>
+      {!isDev && <div className="silk" aria-hidden />}
       {!isDev && <Nav />}
       <Routes>
         <Route path="/" element={<Home />} />

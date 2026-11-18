@@ -7,16 +7,9 @@ import ContactModal from './ContactModal'
 import './Nav.css'
 
 export function Wordmark({ className = '' }: { className?: string }) {
-  // TODO(logo): swap the text wordmark for the logo SVG once it exists.
   return (
     <Link to="/" className={`wordmark ${className}`} aria-label="Preambl home">
-      <span className="wordmark__mark" aria-hidden>
-        <span />
-        <span />
-        <span />
-        <span />
-      </span>
-      <span className="wordmark__text">Preambl</span>
+      <img src="/logo-horizontal.svg" alt="Preambl" className="wordmark__img" />
     </Link>
   )
 }

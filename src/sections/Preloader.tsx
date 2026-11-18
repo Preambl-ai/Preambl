@@ -8,24 +8,28 @@ interface Props {
 }
 
 /**
- * Minimal preloader: thin progress line + monospace percentage.
+ * Minimal preloader: the logo's eight bars (1010 0101) lighting in steps, plus a percentage.
  * Climbs to ~85% on a timer while shaders compile, snaps to 100% on `ready`,
  * then crossfades into the dormant chip. The overlay shares the page
  * background so there is never a flash of empty canvas.
  */
 export default function Preloader({ ready, onDone }: Props) {
   const root = useRef<HTMLDivElement>(null)
-  const bar = useRef<HTMLDivElement>(null)
+  const bits = useRef<HTMLDivElement>(null)
   const pct = useRef<HTMLSpanElement>(null)
   const state = useRef({ v: 0 })
   const tween = useRef<gsap.core.Tween | null>(null)
   const done = useRef(onDone)
   done.current = onDone
+  const lit = (v: number) => {
+    const n = Math.round(v * 8)
+    bits.current?.querySelectorAll('span').forEach((el, i) => el.classList.toggle('is-lit', i < n))
+  }
 
   useEffect(() => {
     const s = state.current
     const render = () => {
-      if (bar.current) bar.current.style.transform = `scaleX(${s.v})`
+      lit(s.v)
       if (pct.current) pct.current.textContent = `${Math.round(s.v * 100).toString().padStart(3, '0')}`
     }
     tween.current = gsap.to(s, { v: 0.86, duration: 1.1, ease: 'power2.out', onUpdate: render })
@@ -44,11 +48,10 @@ export default function Preloader({ ready, onDone }: Props) {
       duration: 0.28,
       ease: 'power2.inOut',
       onUpdate: () => {
-        if (bar.current) bar.current.style.transform = `scaleX(${s.v})`
+        lit(s.v)
         if (pct.current) pct.current.textContent = `${Math.round(s.v * 100).toString().padStart(3, '0')}`
       },
     })
-      .to(bar.current, { boxShadow: '0 0 24px rgba(255,176,58,0.9)', duration: 0.2 }, '<')
       .to(root.current, { opacity: 0, duration: 0.65, ease: 'power2.inOut' }, '+=0.1')
     return () => {
       tl.kill()
@@ -58,9 +61,10 @@ export default function Preloader({ ready, onDone }: Props) {
   return (
     <div ref={root} className="preloader" aria-live="polite" aria-busy={!ready}>
       <div className="preloader__inner">
-        <span className="mono">Preambl</span>
-        <div className="preloader__track">
-          <div ref={bar} className="preloader__bar" />
+        <div ref={bits} className="preloader__bits" aria-hidden>
+          {[1, 0, 1, 0, 0, 1, 0, 1].map((b, i) => (
+            <span key={i} className={b ? 'is-tall' : ''} />
+          ))}
         </div>
         <span className="mono preloader__pct">
           <span ref={pct}>000</span>

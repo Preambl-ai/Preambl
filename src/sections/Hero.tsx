@@ -156,7 +156,7 @@ export default function Hero() {
             <h1 className="display hero__title">{TAGLINE}</h1>
           </div>
           <div ref={text1} className="hero__t1">
-            <p className="h2 glow-text">{CLOSING}</p>
+            <p className="h2">{CLOSING}</p>
             <span className="mono">Weights live in the silicon. Nothing is fetched.</span>
           </div>
         </div>

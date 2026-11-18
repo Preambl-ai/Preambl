@@ -52,7 +52,7 @@ export default function DataFlow({ play }: { play: boolean }) {
         <GridUnderlay id={ID} w={W} h={H} />
 
         {/* input image */}
-        <rect className="draw" x="56" y="116" width="96" height="96" fill={color.bg2} stroke={color.silver} strokeWidth={stroke.thin} />
+        <rect className="draw" x="56" y="116" width="96" height="96" fill={color.bg3} stroke={color.silver} strokeWidth={stroke.thin} />
         {px.map((p, i) => (
           <rect key={i} className="px" x={p.x} y={p.y} width="8" height="8" fill={color.silverHi} opacity={0.15 + p.v * 0.7} />
         ))}
@@ -61,7 +61,7 @@ export default function DataFlow({ play }: { play: boolean }) {
         </text>
 
         {/* die with stages */}
-        <rect className="draw" x="230" y="70" width="330" height="190" fill={color.bg2} stroke={color.silverHi} strokeWidth={stroke.thin} />
+        <rect className="draw" x="230" y="70" width="330" height="190" fill={color.bg3} stroke={color.silverHi} strokeWidth={stroke.thin} />
         <rect className="draw" x="238" y="78" width="314" height="174" fill="none" stroke={color.line} strokeWidth={stroke.hair} />
         <g opacity="0.35">
           <CellField id={`${ID}-cells`} x={240} y={80} w={310} h={170} pitch={6} opacity={0.5} />
@@ -90,7 +90,7 @@ export default function DataFlow({ play }: { play: boolean }) {
 
         {/* output classification */}
         <g transform="translate(600 118)">
-          <rect className="draw" x="0" y="0" width="130" height="92" fill={color.bg2} stroke={color.silver} strokeWidth={stroke.thin} />
+          <rect className="draw" x="0" y="0" width="130" height="92" fill={color.bg3} stroke={color.silver} strokeWidth={stroke.thin} />
           {[
             ['CLASS A', 0.86, true],
             ['CLASS B', 0.3, false],

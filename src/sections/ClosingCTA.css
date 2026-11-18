@@ -9,7 +9,7 @@
   width: 90vw;
   height: 80%;
   transform: translateX(-50%);
-  background: radial-gradient(50% 50% at 50% 50%, rgba(220, 42, 82, 0.22), rgba(255, 176, 58, 0.04) 50%, transparent 70%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(184, 135, 103, 0.22), rgba(246, 218, 199, 0.04) 50%, transparent 70%);
   pointer-events: none;
   filter: blur(10px);
 }
@@ -50,7 +50,6 @@
   width: 8px;
   height: 1px;
   background: var(--color-accent);
-  box-shadow: 0 0 6px var(--color-accent);
 }
 .list b {
   font-weight: 500;

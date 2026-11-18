@@ -112,7 +112,7 @@ const panel: React.CSSProperties = {
   gap: 10,
   padding: 14,
   width: 300,
-  background: 'rgba(10,4,7,0.8)',
+  background: 'rgba(26, 6, 7,0.8)',
   border: '1px solid var(--color-line-hi)',
   textTransform: 'none',
   letterSpacing: '0.04em',

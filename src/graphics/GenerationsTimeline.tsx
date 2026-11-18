@@ -46,7 +46,7 @@ export default function GenerationsTimeline({ play }: { play: boolean }) {
             <g key={g.label} className="chip">
               <circle className="chip-glow" cx={xs[i]} cy={170} r={s * 0.9} fill={`url(#${ID}-radial)`} opacity={g.glow} />
               {/* package */}
-              <rect x={x - 8} y={y - 8} width={s + 16} height={s + 16} fill={color.bg2} stroke={color.line} strokeWidth={stroke.hair} />
+              <rect x={x - 8} y={y - 8} width={s + 16} height={s + 16} fill={color.bg3} stroke={color.line} strokeWidth={stroke.hair} />
               {/* pads */}
               {Array.from({ length: 6 }, (_, k) => (
                 <g key={k} fill={color.silver} opacity="0.7">
@@ -55,7 +55,7 @@ export default function GenerationsTimeline({ play }: { play: boolean }) {
                 </g>
               ))}
               {/* die */}
-              <rect x={x} y={y} width={s} height={s} fill={color.bg1} stroke={last ? color.amber : color.silverHi} strokeWidth={stroke.thin} strokeDasharray={last ? '4 3' : undefined} />
+              <rect x={x} y={y} width={s} height={s} fill={color.bg2} stroke={last ? color.amber : color.silverHi} strokeWidth={stroke.thin} strokeDasharray={last ? '4 3' : undefined} />
               <g style={{ color: last ? color.amber : color.accentHi }} opacity={0.5 + g.glow * 0.5}>
                 <CellField id={`${ID}-c${i}`} x={x + 5} y={y + 5} w={s - 10} h={s - 10} pitch={g.pitch} />
               </g>

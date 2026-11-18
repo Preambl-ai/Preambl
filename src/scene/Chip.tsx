@@ -80,7 +80,7 @@ export default function Chip({ progress, params }: ChipProps) {
   const pkgMat = useMemo(
     () =>
       new MeshPhysicalMaterial({
-        color: '#14080D',
+        color: '#1F0709',
         metalness: 0.35,
         roughness: 0.62,
         clearcoat: 0.35,
