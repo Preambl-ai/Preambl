@@ -228,6 +228,41 @@ h3,
   border: 1px solid var(--color-line);
   background: var(--color-bg2);
   overflow: hidden;
+  transform: perspective(1100px) rotateX(0deg) rotateY(0deg) scale(1);
+  transition:
+    transform 0.55s var(--ease-power-on),
+    border-color 0.3s,
+    box-shadow 0.55s var(--ease-power-on);
+}
+/* Hover: grow and lean toward the cursor; transitions shorten so it follows the pointer */
+.graphic.is-hover {
+  z-index: 5;
+  border-color: var(--color-line-hi);
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.07);
+  transition:
+    transform 0.14s ease-out,
+    border-color 0.3s,
+    box-shadow 0.3s;
+  box-shadow: 0 24px 60px rgba(10, 2, 3, 0.55);
+}
+/* soft light under the cursor */
+.graphic::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(246, 218, 199, 0.1), transparent 60%);
+  transition: opacity 0.4s;
+}
+.graphic.is-hover::after {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .graphic.is-hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
 .graphic svg {
   display: block;

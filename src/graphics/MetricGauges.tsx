@@ -1,5 +1,5 @@
 import { color, font, stroke } from '@/tokens'
-import { GraphicDefs } from './primitives'
+import { GraphicDefs, useTilt } from './primitives'
 import { useGraphic } from './useGraphic'
 import { gsap } from '@/lib/gsap'
 import './MetricGauges.css'
@@ -68,8 +68,9 @@ function Gauge({ m, i }: { m: (typeof METRICS)[number]; i: number }) {
 }
 
 export default function MetricGauges({ play }: { play: boolean }) {
+  const tilt = useTilt<HTMLDivElement>()
   return (
-    <div className="gauges graphic" role="img" aria-label="Four instrument gauges for latency, energy, cost and privacy; values to be published">
+    <div {...tilt} className="gauges graphic" role="img" aria-label="Four instrument gauges for latency, energy, cost and privacy; values to be published">
       <span className="corner tl" />
       <span className="corner tr" />
       <span className="corner bl" />

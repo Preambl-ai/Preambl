@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useRef, type PointerEvent, type ReactNode } from 'react'
 import { color, font, stroke } from '@/tokens'
 
 /** Shared SVG defs: glow filters and grid pattern. Mount once per <svg>. */
@@ -82,10 +82,39 @@ export function Callout({ x, y, lx, ly, label, sub, hi, anchor = 'start', classN
   )
 }
 
+/**
+ * Hover for a `.graphic` box (mouse only): it grows and leans toward the cursor with a soft
+ * light following it; leaving snaps it back to rest. Spread `bind` onto the element.
+ */
+export function useTilt<T extends HTMLElement>() {
+  const ref = useRef<T>(null)
+  const track = (e: PointerEvent<T>) => {
+    const el = ref.current
+    if (!el || e.pointerType !== 'mouse') return
+    const r = el.getBoundingClientRect()
+    const px = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width))
+    const py = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))
+    el.classList.add('is-hover')
+    el.style.setProperty('--rx', `${((0.5 - py) * 8).toFixed(2)}deg`)
+    el.style.setProperty('--ry', `${((px - 0.5) * 10).toFixed(2)}deg`)
+    el.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`)
+    el.style.setProperty('--my', `${(py * 100).toFixed(1)}%`)
+  }
+  const reset = () => {
+    const el = ref.current
+    if (!el) return
+    el.classList.remove('is-hover')
+    for (const v of ['--rx', '--ry', '--mx', '--my']) el.style.removeProperty(v)
+  }
+  const bind = { ref, onPointerEnter: track, onPointerMove: track, onPointerLeave: reset, onPointerCancel: reset }
+  return bind
+}
+
 /** Frame wrapper with corner ticks and a small tag. */
 export function GraphicFrame({ tag, children, aspect, label }: { tag: ReactNode; children: ReactNode; aspect?: string; label: string }) {
+  const bind = useTilt<HTMLElement>()
   return (
-    <figure className="graphic" style={{ aspectRatio: aspect, margin: 0 }} role="img" aria-label={label}>
+    <figure {...bind} className="graphic" style={{ aspectRatio: aspect, margin: 0 }} role="img" aria-label={label}>
       <span className="corner tl" />
       <span className="corner tr" />
       <span className="corner bl" />
