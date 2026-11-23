@@ -20,9 +20,9 @@ const structuredData = {
       description: site.description,
       logo: {
         '@type': 'ImageObject',
-        url: `${site.url}/preambl-logo-1024.png`,
-        width: 1024,
-        height: 1024,
+        url: `${site.url}/preambl-logo.png`,
+        width: 512,
+        height: 512,
       },
       sameAs: ['https://github.com/Preambl-ai'],
     },

@@ -1,33 +1,28 @@
-"""Rasterize the approved copper-background SVG logo without redesigning it.
+"""Export icons from the clean, approved copper-background PNG.
 
 Optional asset-authoring dependency: python -m pip install Pillow
 Run from any directory: python scripts/generate-icons.py
-The source has vector bars and an embedded raster background; exports cannot
-recover detail missing from that background.
+The 512px original is the source of truth. Do not overlay bars on a smaller
+raster of the logo: it already contains the bars and creates doubled edges.
 """
 import base64
-import io
 from pathlib import Path
-import xml.etree.ElementTree as ET
 
-from PIL import Image, ImageDraw
+from PIL import Image
 
 PUBLIC = Path(__file__).resolve().parents[1] / "public"
-source_path = PUBLIC / "preambl-logo.svg"
-source = ET.parse(source_path).getroot()
-ns = "{http://www.w3.org/2000/svg}"
-background = next(source.iter(ns + "image"))
-encoded = background.get("href").split(",", 1)[1]
-image = Image.open(io.BytesIO(base64.b64decode(encoded))).convert("RGB")
-image = image.resize((4096, 4096), Image.Resampling.BILINEAR)
-draw = ImageDraw.Draw(image)
-bars = list(source.iter(ns + "rect"))
-assert len(bars) == 8, "Expected the approved eight-bar Preambl logo"
-for bar in bars:
-    x, y, width, height = (float(bar.attrib[key]) for key in ("x", "y", "width", "height"))
-    draw.rectangle((x * 4, y * 4, (x + width) * 4, (y + height) * 4), fill=bar.get("fill"))
+source_path = PUBLIC / "preambl-logo.png"
+image = Image.open(source_path).convert("RGB")
+assert image.size == (512, 512), "Expected the original 512px logo"
+encoded = base64.b64encode(source_path.read_bytes()).decode("ascii")
+svg = (
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">'
+    f'<image width="512" height="512" href="data:image/png;base64,{encoded}"/>'
+    '</svg>\n'
+)
+(PUBLIC / "preambl-logo.svg").write_text(svg, encoding="utf-8")
+(PUBLIC / "favicon.svg").write_text(svg, encoding="utf-8")
 
-(PUBLIC / "favicon.svg").write_bytes(source_path.read_bytes())
 for size in (16, 32, 48, 96, 180, 192, 512, 1024):
     name = (
         "preambl-logo-1024.png" if size == 1024 else

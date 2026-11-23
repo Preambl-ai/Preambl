@@ -17,9 +17,9 @@ The production origin is **https://www.preambl.dev**. Titles, descriptions, and 
 
 The build generates home and products HTML containing readable initial content, route-specific metadata, canonical URLs, and Organization/WebSite JSON-LD. React replaces the initial content when it starts; the animated site remains interactive. It also generates `robots.txt` and `sitemap.xml`. `vercel.json` serves the products HTML on direct visits. In-app navigation updates the page metadata.
 
-The approved logo is the cream eight-bar mark on its copper silk background. `public/preambl-logo.svg` preserves the existing 1024-viewBox source, with vector bars and an embedded raster background. The background itself is 128 × 128 pixels; the SVG keeps the bars sharp but does not make the texture a high-resolution vector. This is the highest-quality matching source located in the repository and local assets inspected. The screenshot is not used as the master.
+The approved logo is the cream eight-bar mark on its copper silk background. The source of truth is `public/preambl-logo.png`, the clean original 512 × 512 PNG recovered from the existing site's assets. The screenshot is not used as the master. The earlier SVG layered bars over a low-resolution raster that already contained bars; enlarging it produced unwanted halos. That export is replaced.
 
-The header, footer, favicon, touch/app icons, structured-data logo, and link previews use this logo. A 1024 × 1024 PNG export is supplied as `public/preambl-logo-1024.png`. To regenerate raster exports without redesigning the source, install Pillow and run `python scripts/generate-icons.py`.
+The header, footer, favicon, touch/app icons, structured-data logo, and link previews use this logo. The SVG files wrap the clean PNG without adding bars or effects. The 1024px PNG is a compatibility upscale, not additional image detail; use the original 512px PNG for uploads. To regenerate exports without redesigning the source, install Pillow and run `python scripts/generate-icons.py`.
 
 ### After merging and deploying
 
