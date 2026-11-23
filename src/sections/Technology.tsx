@@ -5,6 +5,7 @@ import GenerationsTimeline from '@/graphics/GenerationsTimeline'
 import DeviceSilhouettes from '@/graphics/DeviceSilhouettes'
 import Section from './Section'
 import ClosingCTA from './ClosingCTA'
+import site from '@/data/site.json'
 
 /**
  * The long-form explainer under the hero. Copy aimed at a smart
@@ -23,6 +24,7 @@ export default function Technology() {
         }
         graphic={(play) => <BottleneckDiagram play={play} />}
       >
+        <p className="body reveal">{site.description}</p>
         <p className="lead reveal">
           A neural network is a set of numbers called weights. To use the model, a chip has to pull those weights out of memory and bring them to the circuits that do the math. Every time. For every input.
         </p>

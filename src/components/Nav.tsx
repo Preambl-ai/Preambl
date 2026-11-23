@@ -9,7 +9,8 @@ import './Nav.css'
 export function Wordmark({ className = '' }: { className?: string }) {
   return (
     <Link to="/" className={`wordmark ${className}`} aria-label="Preambl home">
-      <img src="/logo-horizontal.svg" alt="Preambl" className="wordmark__img" />
+      <img src="/preambl-logo.svg" alt="" className="wordmark__icon" width="40" height="40" />
+      <img src="/wordmark.svg" alt="Preambl" className="wordmark__img" />
     </Link>
   )
 }
