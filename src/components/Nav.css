@@ -38,10 +38,17 @@
 .wordmark {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
+}
+.wordmark__icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
 .wordmark__img {
   display: block;
-  height: 24px;
+  height: 20px;
   width: auto;
 }
 

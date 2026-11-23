@@ -7,6 +7,7 @@ import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Products from './pages/Products'
+import PageMetadata from './components/PageMetadata'
 
 // Dev-only route: slider for uProgress / camera, PNG capture for the no-WebGL fallback.
 const DevChip = import.meta.env.DEV ? lazy(() => import('./pages/DevChip')) : null
@@ -39,6 +40,7 @@ export default function App() {
 
   return (
     <>
+      <PageMetadata />
       {!isDev && <div className="silk" aria-hidden />}
       {!isDev && <Nav />}
       <Routes>
