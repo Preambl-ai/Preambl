@@ -1,0 +1,27 @@
+.stmt {
+  padding-block: clamp(120px, 22vh, 240px) clamp(160px, 30vh, 320px);
+}
+.stmt__inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 5vh, 56px);
+}
+.stmt__p {
+  max-width: 30ch;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(26px, 3.2vw, 48px);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--color-core);
+  text-wrap: balance;
+}
+/* words never break mid-word; each letter fades in on its own */
+.stmt__w {
+  display: inline-block;
+  white-space: nowrap;
+}
+.stmt__c {
+  opacity: 0.16;
+  transition: opacity 0.12s linear;
+}

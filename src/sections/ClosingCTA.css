@@ -9,7 +9,7 @@
   width: 90vw;
   height: 80%;
   transform: translateX(-50%);
-  background: radial-gradient(50% 50% at 50% 50%, rgba(184, 135, 103, 0.22), rgba(246, 218, 199, 0.04) 50%, transparent 70%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(74, 134, 229, 0.22), rgba(140, 170, 230, 0.04) 50%, transparent 70%);
   pointer-events: none;
   filter: blur(10px);
 }

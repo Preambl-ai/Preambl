@@ -46,10 +46,10 @@ export default function Chip({ progress, params }: ChipProps) {
   const padMat = useMemo(
     () =>
       new MeshStandardMaterial({
-        color: color.silver,
-        metalness: 1,
-        roughness: 0.4,
-        emissive: color.accent,
+        color: '#FFFFFF',
+        metalness: 0.25,
+        roughness: 0.35,
+        emissive: '#FFFFFF',
         emissiveIntensity: 0,
         envMapIntensity: 0.55,
       }),
@@ -58,10 +58,10 @@ export default function Chip({ progress, params }: ChipProps) {
   const leadMat = useMemo(
     () =>
       new MeshStandardMaterial({
-        color: color.silver,
-        metalness: 1,
-        roughness: 0.45,
-        emissive: color.accentHi,
+        color: '#FFFFFF',
+        metalness: 0.25,
+        roughness: 0.4,
+        emissive: '#FFFFFF',
         emissiveIntensity: 0,
         envMapIntensity: 0.5,
       }),
@@ -80,7 +80,7 @@ export default function Chip({ progress, params }: ChipProps) {
   const pkgMat = useMemo(
     () =>
       new MeshPhysicalMaterial({
-        color: '#1F0709',
+        color: '#0B1A33',
         metalness: 0.35,
         roughness: 0.62,
         clearcoat: 0.35,

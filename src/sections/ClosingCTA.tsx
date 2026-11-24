@@ -15,8 +15,7 @@ export default function ClosingCTA() {
           <span className="cta__dim">A vision model, cast in silicon.</span>
         </h2>
         <div className="cta__actions reveal">
-          <Button to="/products">See our first chip</Button>
-          <Button variant="ghost" onClick={() => openContact('early-access')}>
+          <Button onClick={() => openContact('early-access')}>
             Request early access
           </Button>
         </div>

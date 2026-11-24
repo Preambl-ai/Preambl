@@ -1,12 +1,11 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { initLenis, getLenis } from './lib/lenis'
 import { ScrollTrigger } from './lib/gsap'
 import { usePrefersReducedMotion } from './lib/hooks'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Home from './pages/Home'
-import Products from './pages/Products'
 import PageMetadata from './components/PageMetadata'
 
 // Dev-only route: slider for uProgress / camera, PNG capture for the no-WebGL fallback.
@@ -45,7 +44,8 @@ export default function App() {
       {!isDev && <Nav />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
+        {/* Products page is hidden for now; old links land on the home page */}
+        <Route path="/products" element={<Navigate to="/" replace />} />
         {DevChip && (
           <Route
             path="/dev/chip"

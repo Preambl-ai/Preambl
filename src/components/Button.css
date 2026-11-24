@@ -19,7 +19,7 @@
 }
 .btn:hover {
   border-color: var(--color-accent-hi);
-  background: rgba(184, 135, 103, 0.14);
+  background: rgba(74, 134, 229, 0.14);
 }
 .btn--primary {
   background: var(--color-text);

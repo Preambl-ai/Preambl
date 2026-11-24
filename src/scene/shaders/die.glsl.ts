@@ -178,7 +178,7 @@ vec3 emis = uAccent * eStruct
           + mix(uAccentHi, uAmber, .65) * pulse * 1.7
           + uCore * (flash * metalMask * 1.2 + arc + bolt);
 emis += uAccent * channel * lit * .45;   // channels keep a steady floor glow
-emis += uAccentHi * pad * lit * .6;
+emis += vec3(1.) * pad * lit * .6;
 
 // ---------------- surface ----------------
 float grain = pb_noise(dUv * 900.) * .06;
@@ -186,7 +186,7 @@ vec3 base = mix(uMetal, uMetalHi, metalMask * .7 + grain);
 base *= mix(.9, 1.06, bh);
 base = mix(base, base * .7, channel * (1. - traceMask));
 base *= 1. - ring * .25;
-base = mix(base, uMetalHi * 1.1, pad * .8);
+base = mix(base, vec3(1.), pad * .9); // bond pads: white
 diffuseColor.rgb = base;
 float pb_rough = mix(.62, .30, metalMask);
 float pb_metal = mix(.55, .96, metalMask);

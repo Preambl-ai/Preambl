@@ -7,34 +7,34 @@
 export const color = {
   // Silk palette: Night / Oxblood / Wine / Clay / Copper / Sand / Peach. No pure black or white.
   // Backgrounds: Night is the page, Oxblood the deep surface
-  bg0: '#1A0607', // Night
-  bg1: '#220609',
-  bg2: '#2D050A', // Oxblood
-  bg3: '#3B0B12', // brand maroon
+  bg0: '#060C1C', // Deep Space
+  bg1: '#09152A',
+  bg2: '#0B1A33', // Navy
+  bg3: '#14284A',
 
-  // Accent: Copper, used as light (glow, traces, links), never as a big flat fill
-  accent: '#B88767',
-  accentHi: '#D7B599', // Sand: highlights
-  // Peach is the "signal" colour: key marks, pulses, hottest flashes
-  amber: '#F6DAC7',
+  // Accent: Signal Blue
+  accent: '#4A86E5',
+  accentHi: '#8CAAE6', // Starlight: highlights
+  // Mist is the "signal" colour: key marks, pulses, hottest flashes
+  amber: '#F0F4FA',
   // Hottest energy core
-  core: '#FBE9DC',
+  core: '#FFFFFF',
 
-  // Chip metal: cast copper
-  graphite: '#2B100F',
-  graphiteHi: '#4A2420',
-  silver: '#9C6F55',
-  silverHi: '#F6DAC7', // Peach
+  // Chip metal: blued steel
+  graphite: '#0F2142',
+  graphiteHi: '#264678', // Steel
+  silver: '#5A7FBA',
+  silverHi: '#8CAAE6', // Starlight
 
-  // Linework: Wine and Clay
-  line: '#7A4A3C', // Clay, lifted so linework reads on Oxblood
-  lineHi: '#B88767', // Copper
-  grid: '#2B0C0D',
+  // Linework: Steel
+  line: '#2F5590', // Steel, lifted so linework reads on Navy
+  lineHi: '#4A86E5', // Signal Blue
+  grid: '#0C1A33',
 
-  // Text: Peach on dark
-  text: '#F6DAC7',
-  textDim: '#C4A898', // Peach at ~75%
-  textMute: '#A57B60', // Copper, for small technical labels
+  // Text: Mist on dark
+  text: '#F0F4FA',
+  textDim: '#A9B9D8',
+  textMute: '#7C98CC', // for small technical labels
 } as const
 
 export const font = {

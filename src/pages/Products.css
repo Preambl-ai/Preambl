@@ -83,5 +83,5 @@
 }
 .pcard:hover {
   border-color: var(--color-accent);
-  box-shadow: 0 0 24px rgba(184, 135, 103, 0.2);
+  box-shadow: 0 0 24px rgba(74, 134, 229, 0.2);
 }

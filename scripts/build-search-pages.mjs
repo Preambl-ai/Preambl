@@ -55,7 +55,7 @@ for (const [path, page] of Object.entries(site.pages)) {
   // It is also usable when scripts fail or JavaScript is disabled.
   const heading = path === '/' ? 'Preambl — AI inference hardware' : 'Preambl-0'
   const content = path === '/' ? site.description : page.description
-  const initialContent = `<div id="root"><main class="container" style="padding-top:96px;padding-bottom:96px"><a href="/">Preambl</a><h1>${escape(heading)}</h1><p>${escape(content)}</p><nav aria-label="Site"><a href="/">Home</a> · <a href="/products">Products</a> · <a href="https://github.com/Preambl-ai">GitHub</a></nav></main></div>`
+  const initialContent = `<div id="root"><main class="container" style="padding-top:96px;padding-bottom:96px"><a href="/">Preambl</a><h1>${escape(heading)}</h1><p>${escape(content)}</p><nav aria-label="Site"><a href="/">Home</a> ·<a href="https://github.com/Preambl-ai">GitHub</a></nav></main></div>`
   html = html.replace('<div id="root"></div>', initialContent)
 
   const destination = new URL(path === '/' ? 'dist/index.html' : `dist${path}/index.html`, root)

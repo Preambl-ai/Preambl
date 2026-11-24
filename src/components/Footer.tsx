@@ -17,7 +17,6 @@ export default function Footer() {
         </div>
         <nav className="footer__links" aria-label="Footer">
           <Link to="/#technology">Technology</Link>
-          <Link to="/products">Products</Link>
           <button onClick={() => openContact()}>Contact</button>
         </nav>
       </div>

@@ -58,8 +58,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, var(--color-bg0) 8%, rgba(26, 6, 7, 0.78) 40%, rgba(26, 6, 7, 0.2) 100%),
-    linear-gradient(180deg, rgba(26, 6, 7, 0.5), rgba(26, 6, 7, 0.1) 40%, rgba(26, 6, 7, 0.55));
+    linear-gradient(90deg, var(--color-bg0) 8%, rgba(6, 12, 28, 0.78) 40%, rgba(6, 12, 28, 0.2) 100%),
+    linear-gradient(180deg, rgba(6, 12, 28, 0.5), rgba(6, 12, 28, 0.1) 40%, rgba(6, 12, 28, 0.55));
 }
 /* Film grain over the silk only, so type and shapes stay crisp */
 .silk::after {
@@ -100,7 +100,7 @@ p {
 }
 
 ::selection {
-  background: rgba(184, 135, 103, 0.4);
+  background: rgba(74, 134, 229, 0.4);
   color: var(--color-text);
 }
 
@@ -169,6 +169,7 @@ h3,
 }
 .section {
   position: relative;
+  z-index: 1;
   padding-block: var(--space-section-y);
 }
 .section-grid {
@@ -243,7 +244,7 @@ h3,
     transform 0.14s ease-out,
     border-color 0.3s,
     box-shadow 0.3s;
-  box-shadow: 0 24px 60px rgba(10, 2, 3, 0.55);
+  box-shadow: 0 24px 60px rgba(3, 6, 14, 0.55);
 }
 /* soft light under the cursor */
 .graphic::after {
@@ -252,7 +253,7 @@ h3,
   inset: 0;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(246, 218, 199, 0.1), transparent 60%);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(140, 170, 230, 0.1), transparent 60%);
   transition: opacity 0.4s;
 }
 .graphic.is-hover::after {

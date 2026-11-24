@@ -1,11 +1,11 @@
 import Hero from '@/sections/Hero'
-import Technology from '@/sections/Technology'
+import Statement from '@/sections/Statement'
 
 export default function Home() {
   return (
     <main>
       <Hero />
-      <Technology />
+      <Statement />
     </main>
   )
 }

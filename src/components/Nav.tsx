@@ -43,9 +43,6 @@ export default function Nav() {
           <a href="/#technology" onClick={goTechnology} className="nav__link">
             Technology
           </a>
-          <Link to="/products" className={`nav__link ${location.pathname.startsWith('/products') ? 'is-active' : ''}`}>
-            Products
-          </Link>
           <button className="nav__cta" onClick={() => openContact()}>
             Contact
           </button>

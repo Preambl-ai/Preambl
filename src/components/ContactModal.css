@@ -9,7 +9,7 @@
 .modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(16, 3, 4, 0.78);
+  background: rgba(4, 9, 22, 0.78);
   backdrop-filter: blur(6px);
   animation: modal-fade var(--dur-base) var(--ease-power-on);
 }
@@ -22,8 +22,8 @@
   border: 1px solid var(--color-line-hi);
   padding: clamp(20px, 4vw, 36px);
   box-shadow:
-    0 0 0 1px rgba(184, 135, 103, 0.08) inset,
-    0 0 60px rgba(184, 135, 103, 0.15);
+    0 0 0 1px rgba(74, 134, 229, 0.08) inset,
+    0 0 60px rgba(74, 134, 229, 0.15);
   animation: modal-on var(--dur-base) var(--ease-power-on);
 }
 .modal__corner {
@@ -73,7 +73,7 @@
 .field select:focus,
 .field textarea:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 14px rgba(184, 135, 103, 0.25);
+  box-shadow: 0 0 14px rgba(74, 134, 229, 0.25);
 }
 .field textarea {
   resize: vertical;
@@ -107,5 +107,5 @@
 }
 .modal__email:hover {
   border-color: var(--color-amber);
-  box-shadow: 0 0 18px rgba(246, 218, 199, 0.25);
+  box-shadow: 0 0 18px rgba(140, 170, 230, 0.25);
 }

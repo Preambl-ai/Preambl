@@ -6,10 +6,6 @@
     "/": {
       "title": "Preambl | AI Inference Hardware",
       "description": "Preambl develops hardware for fast, efficient AI inference, starting with FPGA-based image classification."
-    },
-    "/products": {
-      "title": "Preambl-0 | Vision Inference Hardware in Development",
-      "description": "Explore Preambl-0, Preambl's vision inference hardware project in development, and its approach to on-device image classification."
     }
   }
 }

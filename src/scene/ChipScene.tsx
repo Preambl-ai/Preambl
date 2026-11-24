@@ -45,8 +45,8 @@ function ReadySignal({ onReady }: { onReady?: () => void }) {
 function StudioEnv() {
   return (
     <Environment resolution={256} frames={1} background={false}>
-      <Lightformer form="rect" intensity={1.5} color="#F6DAC7" position={[0, 6, 0]} rotation-x={Math.PI / 2} scale={[9, 9, 1]} />
-      <Lightformer form="rect" intensity={1.1} color="#E4C3AC" position={[-6, 2, -2]} rotation-y={Math.PI / 2} scale={[8, 2.2, 1]} />
+      <Lightformer form="rect" intensity={1.5} color="#FFFFFF" position={[0, 6, 0]} rotation-x={Math.PI / 2} scale={[9, 9, 1]} />
+      <Lightformer form="rect" intensity={1.1} color="#C9D6F0" position={[-6, 2, -2]} rotation-y={Math.PI / 2} scale={[8, 2.2, 1]} />
       <Lightformer form="rect" intensity={0.7} color={color.accentHi} position={[6, 1.2, 3]} rotation-y={-Math.PI / 2} scale={[6, 1.2, 1]} />
       <Lightformer form="ring" intensity={0.5} color={color.amber} position={[2, 3, -7]} scale={2.4} />
     </Environment>
@@ -102,8 +102,8 @@ export default function ChipScene({
       style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
     >
       <color attach="background" args={[color.bg0]} />
-      <ambientLight intensity={0.18} color="#E9CDB8" />
-      <directionalLight position={[3, 7, 2]} intensity={1.1} color="#F6DAC7" />
+      <ambientLight intensity={0.18} color="#C9D6F0" />
+      <directionalLight position={[3, 7, 2]} intensity={1.1} color="#FFFFFF" />
       <directionalLight position={[-4, 2.5, -3]} intensity={0.35} color={color.accentHi} />
       <StudioEnv />
       <Chip progress={progress} params={dieParams} />
