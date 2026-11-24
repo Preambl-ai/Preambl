@@ -22,6 +22,12 @@ const BLOCKS: string[][] = [
 /** Length of the soft edge (in letters) between lit and unlit text, so it sweeps like a reader's eye. */
 const SOFTNESS = 14
 const DIM = 0.16
+/** Eye level: a line finishes lighting up when it reaches this point (fraction of screen height from the top). */
+const EYE = 0.42
+/** A line starts lighting this far below eye level (fraction of screen height), sweeping left to right. */
+const BAND = 0.14
+/** Over the last stretch of scroll (fraction of screen height) eye level slides to the screen bottom, so every line is lit at the end. */
+const BOTTOM_RAMP = 0.3
 
 export default function Statement() {
   const root = useRef<HTMLElement>(null)
@@ -30,40 +36,67 @@ export default function Statement() {
   useLayoutEffect(() => {
     const el = root.current
     if (!el) return
-    const words = Array.from(el.querySelectorAll<HTMLSpanElement>('.stmt__c'))
-    const paint = (p: number) => {
-      const head = p * (words.length + SOFTNESS)
-      for (let i = 0; i < words.length; i++) {
-        const t = Math.min(1, Math.max(0, (head - i) / SOFTNESS))
-        words[i].style.opacity = String(DIM + (1 - DIM) * t)
-      }
+    const chars = Array.from(el.querySelectorAll<HTMLSpanElement>('.stmt__c'))
+    const setT = (c: HTMLSpanElement, t: number) => {
+      c.style.opacity = String(DIM + (1 - DIM) * t)
     }
     if (reduced) {
-      paint(1)
+      chars.forEach((c) => setT(c, 1))
       return
     }
-    // Progress is read straight from where the text sits on screen, so the hero's pinned
-    // scroll can't throw it off. It starts when the section top reaches 70% down the screen
-    // and finishes when the last line's bottom reaches 72%, which is always reachable.
-    const last = el.querySelector<HTMLElement>('.stmt__block:last-child') ?? el
+
+    // Group letters into the visual lines they wrap onto (recomputed on resize / font load).
+    type Line = { chars: HTMLSpanElement[]; probe: HTMLSpanElement }
+    let lines: Line[] = []
+    const measure = () => {
+      lines = []
+      let lastTop = Number.NaN
+      for (const c of chars) {
+        const y = Math.round(c.getBoundingClientRect().top)
+        if (lines.length === 0 || Math.abs(y - lastTop) > 4) {
+          lines.push({ chars: [], probe: c })
+          lastTop = y
+        }
+        lines[lines.length - 1].chars.push(c)
+      }
+    }
+
+    // Each line lights left to right as it rises through the band just below eye level,
+    // and is fully lit once it reaches eye level.
     let frame = 0
     const update = () => {
       frame = 0
       const vh = window.innerHeight
-      const top = el.getBoundingClientRect().top
-      const span = last.getBoundingClientRect().bottom - top - 0.02 * vh
-      paint(Math.min(1, Math.max(0, (0.7 * vh - top) / Math.max(1, span))))
+      const doc = document.documentElement
+      const remaining = doc.scrollHeight - (window.scrollY + vh)
+      const ramp = Math.min(1, Math.max(0, 1 - remaining / (BOTTOM_RAMP * vh)))
+      const eye = (EYE + (1 - EYE) * ramp) * vh
+      const band = BAND * vh
+      for (const line of lines) {
+        const r = line.probe.getBoundingClientRect()
+        const mid = r.top + r.height / 2
+        const p = Math.min(1, Math.max(0, (eye + band - mid) / band))
+        const n = line.chars.length
+        const head = p * (n + SOFTNESS)
+        for (let i = 0; i < n; i++) setT(line.chars[i], Math.min(1, Math.max(0, (head - i) / SOFTNESS)))
+      }
     }
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update)
     }
+    const onResize = () => {
+      measure()
+      onScroll()
+    }
+    measure()
     update()
+    document.fonts?.ready.then(onResize)
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+    window.addEventListener('resize', onResize)
     return () => {
       cancelAnimationFrame(frame)
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('resize', onResize)
     }
   }, [reduced])
 
