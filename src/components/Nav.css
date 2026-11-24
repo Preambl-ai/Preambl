@@ -19,7 +19,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(6, 12, 28, 0.75), rgba(6, 12, 28, 0));
+  background: linear-gradient(180deg, rgba(var(--overlay-rgb), 0.75), rgba(var(--overlay-rgb), 0));
   pointer-events: none;
   opacity: 0;
   transition: opacity var(--dur-slow) var(--ease-power-on);
@@ -100,6 +100,24 @@
 .nav__cta:hover {
   background: transparent;
   color: var(--color-text);
+}
+.nav__theme {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-left: -8px;
+  color: var(--color-text-mute);
+  opacity: 0.8;
+  transition:
+    color var(--dur-fast),
+    opacity var(--dur-fast),
+    transform 0.5s var(--ease-power-on);
+}
+.nav__theme:hover {
+  color: var(--color-text);
+  opacity: 1;
+  transform: rotate(20deg);
 }
 @media (max-width: 520px) {
   .nav__link:first-child {

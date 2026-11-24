@@ -37,6 +37,40 @@ export const color = {
   textMute: '#7C98CC', // for small technical labels
 } as const
 
+/**
+ * Light theme: white page, blue type. Same keys as `color`; only the page (CSS) uses it.
+ * The 3D chip keeps the dark material colours and sits on a light stage.
+ */
+export const lightColor: Record<keyof typeof color, string> = {
+  bg0: '#F7F9FD',
+  bg1: '#F0F4FA', // Mist
+  bg2: '#FFFFFF', // panels
+  bg3: '#E3EAF6',
+
+  accent: '#4A86E5', // Signal Blue
+  accentHi: '#264678', // Steel
+  amber: '#4A86E5',
+  core: '#0F2A5C',
+
+  graphite: '#0F2142',
+  graphiteHi: '#264678',
+  silver: '#5A7FBA',
+  silverHi: '#264678',
+
+  line: '#C3D2EA',
+  lineHi: '#4A86E5',
+  grid: '#E6ECF6',
+
+  text: '#0F2A5C', // deep blue
+  textDim: '#33507F',
+  textMute: '#5D7CB0',
+}
+
+/** RGB triplets for translucent overlays (nav fade, hero fade, backdrop shading). */
+export const overlayRgb = { dark: '6, 12, 28', light: '247, 249, 253' } as const
+
+export type Theme = 'dark' | 'light'
+
 export const font = {
   heading: "'Montserrat', 'Inter', system-ui, sans-serif",
   body: "'Inter', system-ui, sans-serif",
@@ -101,11 +135,13 @@ export function hexToRgb01(hex: string): [number, number, number] {
 }
 
 /** Writes every token to :root as --<group>-<key>. Idempotent. */
-export function injectTokens() {
+export function injectTokens(theme: Theme = 'dark') {
   if (typeof document === 'undefined') return
   const root = document.documentElement
+  root.dataset.theme = theme
+  root.style.setProperty('--overlay-rgb', overlayRgb[theme])
   const groups: Record<string, Record<string, string | number>> = {
-    color,
+    color: theme === 'light' ? lightColor : color,
     font,
     space,
     radius,

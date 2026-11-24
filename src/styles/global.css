@@ -58,8 +58,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, var(--color-bg0) 8%, rgba(6, 12, 28, 0.78) 40%, rgba(6, 12, 28, 0.2) 100%),
-    linear-gradient(180deg, rgba(6, 12, 28, 0.5), rgba(6, 12, 28, 0.1) 40%, rgba(6, 12, 28, 0.55));
+    linear-gradient(90deg, var(--color-bg0) 8%, rgba(var(--overlay-rgb), 0.78) 40%, rgba(var(--overlay-rgb), 0.2) 100%),
+    linear-gradient(180deg, rgba(var(--overlay-rgb), 0.5), rgba(var(--overlay-rgb), 0.1) 40%, rgba(var(--overlay-rgb), 0.55));
 }
 /* Film grain over the silk only, so type and shapes stay crisp */
 .silk::after {
@@ -69,6 +69,21 @@ body {
   background: url('/grain.png') 0 0 / 256px 256px;
   opacity: 0.1;
   mix-blend-mode: overlay;
+}
+/* Light theme: pale silk, softer grain */
+[data-theme='light'] .silk {
+  background-image: url('/silk-light.webp');
+  filter: none;
+}
+[data-theme='light'] .silk::after {
+  opacity: 0.06;
+}
+/* Smooth fade when the theme flips */
+body,
+.silk,
+.hero,
+.hero__pin {
+  transition: background-color 0.5s var(--ease-power-on);
 }
 @keyframes silk-drift {
   from { transform: translate3d(-1.5%, 0.8%, 0) scale(1); }

@@ -9,7 +9,7 @@
 .modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(4, 9, 22, 0.78);
+  background: rgba(var(--overlay-rgb), 0.78);
   backdrop-filter: blur(6px);
   animation: modal-fade var(--dur-base) var(--ease-power-on);
 }

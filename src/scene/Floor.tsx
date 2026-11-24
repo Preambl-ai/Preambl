@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Color, ShaderMaterial } from 'three'
-import { color, scene as S } from '@/tokens'
+import { color, scene as S, type Theme } from '@/tokens'
+import { stageColor } from './stage'
 import { CHIP } from './Chip'
 import { smoothstep } from './math'
 
@@ -33,7 +34,7 @@ void main(){
 }
 `
 
-export default function Floor({ progress }: { progress: () => number }) {
+export default function Floor({ progress, theme = 'dark' }: { progress: () => number; theme?: Theme }) {
   const mat = useMemo(
     () =>
       new ShaderMaterial({
@@ -49,6 +50,10 @@ export default function Floor({ progress }: { progress: () => number }) {
       }),
     [],
   )
+  useEffect(() => {
+    mat.uniforms.uBg.value.copy(stageColor(theme, 'bg1'))
+    mat.uniforms.uGrid.value.copy(stageColor(theme, 'line'))
+  }, [mat, theme])
   useFrame(({ clock }) => {
     mat.uniforms.uPower.value = smoothstep(S.powerStart, S.powerFull, progress())
     mat.uniforms.uTime.value = clock.elapsedTime

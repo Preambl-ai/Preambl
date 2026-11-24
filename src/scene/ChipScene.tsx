@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, Lightformer, OrbitControls } from '@react-three/drei'
 import { color, scene as S } from '@/tokens'
+import { useTheme } from '@/lib/theme'
+import { stageColor } from './stage'
 import Chip from './Chip'
 import CameraRig from './CameraRig'
 import Effects from './Effects'
@@ -91,6 +93,7 @@ export default function ChipScene({
   onCreatedCanvas,
 }: ChipSceneProps) {
   const dieParams = { lite: mobile, ...params }
+  const theme = useTheme()
   return (
     <Canvas
       className={className}
@@ -101,17 +104,17 @@ export default function ChipScene({
       onCreated={({ gl }) => onCreatedCanvas?.(gl.domElement)}
       style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
     >
-      <color attach="background" args={[color.bg0]} />
+      <color key={theme} attach="background" args={[stageColor(theme, 'bg0')]} />
       <ambientLight intensity={0.18} color="#C9D6F0" />
       <directionalLight position={[3, 7, 2]} intensity={1.1} color="#FFFFFF" />
       <directionalLight position={[-4, 2.5, -3]} intensity={0.35} color={color.accentHi} />
       <StudioEnv />
       <Chip progress={progress} params={dieParams} />
       {micro && !mobile ? <MicroCells progress={progress} centerScale={params?.centerScale} blocks={params?.blocks} /> : null}
-      <Floor progress={progress} />
+      <Floor progress={progress} theme={theme} />
       {cameraRig ? <CameraRig progress={progress} /> : null}
       {orbit ? <OrbitSetup /> : null}
-      <Effects mobile={mobile} />
+      <Effects mobile={mobile} theme={theme} />
       <ReadySignal onReady={onReady} />
     </Canvas>
   )
