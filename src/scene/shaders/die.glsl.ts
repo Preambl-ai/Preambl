@@ -60,6 +60,29 @@ float pb_box(vec2 p, vec2 b) {
   return length(max(d, 0.)) + min(max(d.x, d.y), 0.);
 }
 float pb_fill(float d, float aa) { return 1. - smoothstep(-aa, aa, d); }
+
+// Signed distance to the Preambl mark (eight bars, 1010 0101: tall short tall short short tall short tall),
+// centred on the active area. Proportions follow the logo artwork.
+float pb_logo(vec2 p, out float barIdx) {
+  const float W = 0.56;                 // logo width in active-area uv
+  const float bw = W * (56.7 / 684.46); // bar width
+  const float hT = W * (280.27 / 684.46);
+  const float hS = W * (115.83 / 684.46);
+  float y0 = 0.5 - hT * 0.5;            // shared baseline
+  float d = 1e3;
+  barIdx = -1.;
+  for (int i = 0; i < 8; i++) {
+    float fi = float(i);
+    // bar left edges in the artwork: 4 bars, a wider gap, then 4 more
+    float lx = fi < 3.5 ? fi * 85.05 : 372.61 + (fi - 4.) * 85.05;
+    float x0 = 0.5 - W * 0.5 + W * (lx / 684.46);
+    bool tall = (i == 0 || i == 2 || i == 5 || i == 7);
+    float h = tall ? hT : hS;
+    float bd = pb_box(p - vec2(x0 + bw * 0.5, y0 + h * 0.5), vec2(bw * 0.5, h * 0.5));
+    if (bd < d) { d = bd; barIdx = fi; }
+  }
+  return d;
+}
 `
 
 /** Replaces `#include <map_fragment>`. Produces diffuseColor + pb_* locals. */
@@ -150,13 +173,22 @@ float metalMask = max(max(structure, ring), pad);
 // ---------------- energy ----------------
 float power = smoothstep(uPowerStart, uPowerFull, uProgress);
 float front = power * 1.4;
-// front A: from the centre block outward, noise-warped, faster along channels
-float dC = length(auv - .5) * 1.5 + (pb_fbm(auv * 5. + uSeed) - .5) * .38;
-dC -= channel * .14 + traceMask * .05;
-// front B: from the pad ring inward (pads light first)
-float dE = (0.5 - max(abs(auv.x - .5), abs(auv.y - .5))) * 2.2 + .5 + (pb_fbm(auv * 7. - uSeed) - .5) * .3;
-float dEn = max(min(dC, dE) + (ch - .5) * .035, 0.03);
-dEn = mix(dEn, 0.42 + pb_hash(floor(vec2(along * padCount, 0.))) * .08, pad); // pads: early, staggered
+// Stage 1: the logo. Its eight bars light first, one after another left to right,
+// so the opening frames of the scroll show the Preambl mark burning into the die.
+float barIdx;
+float dLogo = pb_logo(auv, barIdx);
+float logoMask = pb_fill(dLogo, aa0 * 1.5) * inActive;
+float tLogo = 0.03 + barIdx * 0.014;
+// Stage 2: after a short hold, energy breaks out of the logo and spreads chaotically:
+// distance from the mark, warped hard by noise, jumping block to block and cell to cell,
+// running ahead along the routing channels.
+float chaos = (pb_fbm(auv * 6. + uSeed + vec2(0., power * .6)) - .5) * .55
+            + (bh - .5) * .16
+            + (ch - .5) * .07;
+float dOut = 0.3 + max(dLogo, 0.) * 1.55 + chaos;
+dOut -= channel * .12 + traceMask * .05;
+float dEn = mix(max(dOut, 0.22), tLogo, logoMask);
+dEn = mix(dEn, 0.5 + pb_hash(floor(vec2(along * padCount, 0.))) * .1, pad); // pads join after the logo, staggered
 float behind = front - dEn;
 float lit   = smoothstep(0., .015, behind);
 float flash = exp(-max(behind, 0.) * 14.) * lit;
@@ -179,6 +211,9 @@ vec3 emis = uAccent * eStruct
           + uCore * (flash * metalMask * 1.2 + arc + bolt);
 emis += uAccent * channel * lit * .45;   // channels keep a steady floor glow
 emis += vec3(1.) * pad * lit * .6;
+// One energy layer for everything: every lit point of the active area gets the same soft fill.
+// While only the logo is lit it reads as the mark; once the rest catches up it blends in and disappears.
+emis += uAccent * lit * inActive * .55;
 
 // ---------------- surface ----------------
 float grain = pb_noise(dUv * 900.) * .06;
